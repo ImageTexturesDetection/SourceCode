@@ -1,9 +1,9 @@
-##Using de statistical methodes for texture images segmentation
+##Using statistical methodes for texture images segmentation
 
-###Betrouni El-Khalil, Melaine Samy, Saliha Aouat 
-###Computer science Department
-###University of sciences and technology(USTHB), Algiers, Algeria
-###{kbetrouni,melaine.samy}@gmail.com ,saouat@usthb.dz
+####Betrouni El-Khalil, Melaine Samy, Saliha Aouat 
+####Computer science Department
+####University of sciences and technology(USTHB), Algiers, Algeria
+#### kbetrouni@gmail.com, melaine.samy@gmail.com, saouat@usthb.dz
 
 
 . 0  Abstract:
@@ -37,12 +37,16 @@ Where I (i, j) is the gray level value of the eight neighbors, and gc the gray l
 Reading the values of M (i, j) starting from the top left and following a clockwise rotation, the bit pattern m following is obtained: 
 m = 10001111 
 
-	This result is then converted to decimal by multiplying each M (i, j) by the corresponding value P (i, j) of the weight matrix [Fig.1.c], the latter is constructed with an ascending power of two, starting from top left and following a clockwise rotation. 
+This result is then converted to decimal by multiplying each M (i, j) by the corresponding value P (i, j) of the weight matrix [Fig.1.c], the latter is constructed with an ascending power of two, starting from top left and following a clockwise rotation. 
+
 The LBP gray level value of the central pixel in the example is computed as follows: 
 				 LBP = 1 + 16 + 32 + 64 + 128 = 241 
+
 The following figure shows the total LBP transformation of an image:
  Original Image					     LBP Image
-Fig.2. LBP transform of an image
+
+Fig.2. LBP transform of an image 
+
 Ojala [Oja et al. 02] also defined a value of "U" called "transition" equal to the number of transitions from 0 to 1 and 1 to 0 of the value found in the "bit pattern" in Figure [Fig.3].
 
 
@@ -52,26 +56,20 @@ Ojala [Oja et al. 02] also defined a value of "U" called "transition" equal to t
 Fig.3. Extracting the number of transitions from a pattern
 	In fact, not all the patterns (256) are useful to describe a texture. According to T. Menp [Men et al. 00], the patterns in which a number of transition U = 2 and U = 0, which are called "uniform patterns" represent the most important information on regular patterns of a texture. Some areas of interest such as corners or edges can be detected by this descriptor. These patterns are also more resistant to geometric transformations such as rotation [Zhe 10]. The use of the following 58 uniform patterns was proposed :
 
-
-
-
-
-
-
-
-
-
-
-
-
 Fig.4. The uniform patterns
-	To study the uniformity of a texture, we construct a histogram which is composed of 59 values representing the 58 uniform patterns defined above, plus a final value containing all the "non-uniform patterns."
+
+To study the uniformity of a texture, we construct a histogram which is composed of 59 values representing the 58 uniform patterns defined above, plus a final value containing all the "non-uniform patterns."
 Fig.5. A texture and its LBP histogram
-	Two LBP histograms of two textures are compared as a percentage of similarity. The LBP feature that uses this type of histogram is denoted as LBPu2. This notation means that the LBP is based on the "uniform pattern" having U ≤ 2. Thereafter, LBPu2 will be noted only as LBP.
+	
+
+Two LBP histograms of two textures are compared as a percentage of similarity. The LBP feature that uses this type of histogram is denoted as LBPu2. This notation means that the LBP is based on the "uniform pattern" having U ≤ 2. Thereafter, LBPu2 will be noted only as LBP.
 The decomposing architecture:
-	For the image decomposition, we brought our choice on the algorithm of dynamic segmentation [Ham et al segmentation. 13]. It is called this way because it is based on various sizes of segments.
-	The algorithm will be applied to an image, having previously texture reference. Its principle is as follows: 
-	We start by choosing a point towards which converge the windows of the algorithm. We set a maximum size L of the largest square and generate as many adjacent squares with the same length as possible. Then, we compute the LBP histogram of these squares and their similarities with the texture reference. 
+	
+For the image decomposition, we brought our choice on the algorithm of dynamic segmentation [Ham et al segmentation. 13]. It is called this way because it is based on various sizes of segments.
+	
+The algorithm will be applied to an image, having previously texture reference. Its principle is as follows: 
+	
+We start by choosing a point towards which converge the windows of the algorithm. We set a maximum size L of the largest square and generate as many adjacent squares with the same length as possible. Then, we compute the LBP histogram of these squares and their similarities with the texture reference. 
 
  If the similarity is above the threshold then the square is to be colored, and its position, its size and its histogram are saved. After that, we reduce the size L by distance d and repeat the steps until L becomes smaller than the minimum size of the squares. 
 Finally, we color the squares saved.
